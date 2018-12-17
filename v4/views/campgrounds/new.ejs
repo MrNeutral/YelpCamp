@@ -1,0 +1,16 @@
+<%include ../partials/header%>
+	<div id="newCamp" class="container mt-4 py-2">
+		<div class="container">
+			<h1 class="text-center">Add New Campgrounds</h1>
+			<form action="/campgrounds" method="POST" class="form-group">
+				<div class="form-group">
+					<input class="form-control" type="text" name="campground[name]" placeholder="Campground Name">
+					<input class="form-control mt-1" type="text" name="campground[image]" placeholder="Campground Image">
+					<input class="form-control mt-1" type="text" name="campground[description]" placeholder="Campground Description">
+				</div>
+				<button class="btn btn-block btn-primary" type="submit">Submit</button>
+			</form>
+			<a class="btn btn-outline-primary " href="/campgrounds">Go Back</a>
+		</div>
+	</div>
+<%include ../partials/footer%>

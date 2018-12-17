@@ -1,0 +1,21 @@
+<%include ../partials/header%>
+	<div class="container mt-2 py-2 new">
+		<div class="container">
+			<h1 class="text-center">Add New Comment to <%=campground.name%></h1>
+			<form action="/campgrounds/<%=campground._id%>/comments" method="POST" class="form-group">
+				<div class="form-group">
+					<div class="row">
+						<label for="comment[author]" class="pl-0 col-sm-3 col-form-label">Poster:</label>
+						<input class=" col-sm-9 form-control-plaintext" type="text" name="comment[author]" value="<%=currentUser.username%>" readonly>
+					</div>
+					<div class="row mt-1">
+						<label for="comment[body]" class="pl-0 col-sm-3 col-form-label">Comment:</label>
+						<input class="col-sm-9 form-control mt-1" type="text" name="comment[body]" placeholder="Your opinion on this campground">
+					</div>
+				</div>
+				<button class="btn btn-block btn-primary" type="submit">Submit</button>
+			</form>
+			<a class="btn btn-outline-primary " href="/campgrounds/<%=campground._id%>">Go Back</a>
+		</div>
+	</div>
+<%include ../partials/footer%>

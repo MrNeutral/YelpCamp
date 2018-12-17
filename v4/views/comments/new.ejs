@@ -1,0 +1,15 @@
+<%include ../partials/header%>
+	<div id="newCamp" class="container mt-4 py-2">
+		<div class="container">
+			<h1 class="text-center">Add New Comment to <%=campground.name%></h1>
+			<form action="/campgrounds/<%=campground._id%>/comments" method="POST" class="form-group">
+				<div class="form-group">
+					<input class="form-control" type="text" name="comment[author]" placeholder="Author">
+					<input class="form-control mt-1" type="text" name="comment[body]" placeholder="Comment Body">
+				</div>
+				<button class="btn btn-block btn-primary" type="submit">Submit</button>
+			</form>
+			<a class="btn btn-outline-primary " href="/campgrounds/<%=campground._id%>">Go Back</a>
+		</div>
+	</div>
+<%include ../partials/footer%>

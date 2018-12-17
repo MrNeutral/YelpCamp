@@ -1,0 +1,40 @@
+<%include ../partials/header%>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<p class="lead">YelpCamp</p>
+				<div class="list-group">
+					<li class="list-group-item active">About 1</li>
+					<li class="list-group-item">About 2</li>
+					<li class="list-group-item">About 3</li>
+				</div>
+			</div>
+			<div class="col-md-9 align-items-end">
+				<div class="card">
+					<h1 class="pl-2 card-title"><%=campground.name%></h1>
+					<img class="img-fluid card-image" src="<%=campground.image%>">
+					<div class="p-2 card-body">
+						<div class="row justify-content-between">
+							<h4 class="col-sm-6 text-left">Rating:</h4>
+							<h4 class="col-sm-6 text-right">$9.00/Night</h4>
+						</div>
+						<p class="card-text"><%=campground.description%></p>
+						<div class="text-right">
+							<a class="btn btn-sm btn-success" href="/campgrounds/<%=campground._id%>/comments/new">Add New Comment</a>
+						</div>
+					</div>
+					
+					<div class="container py-2 darker">
+						<%campground.comments.forEach(function(comment){%>
+							<div class="container py-1">
+								<span class="font-weight-bold"><%=comment.author%></span>
+								<p><%=comment.body%></p>
+								<hr class="mx-auto">
+							</div>
+						<%})%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<%include ../partials/footer%>
