@@ -23,7 +23,8 @@ var express 				= require("express"),
 	// seedDB					= require("./seedDB");
 
 //CONFIGURATION
-mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
+mongoose.connect("mongodb://cha0snation:as10xzxz@ds137404.mlab.com:37404/yelpcamp-thanas_pulaj", { useNewUrlParser: true });
 mongoose.set("useFindAndModify", false);
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
