@@ -59,6 +59,6 @@ app.get("*", function(req, res){
 //ROUTES END
 // seedDB();
 //SERVER CONFIG
-app.listen(3000, function(){
+app.listen(process.env.PORT || 3000, function(){
 	console.log("YelpCamp v11 Server has started.");
 });
