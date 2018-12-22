@@ -82,10 +82,10 @@ typings/
 #DynamoDB Local files
 .dynamodb/
 
-#VSCode Workplace
+#Unneeded
 /YelpCamp.code-workspace
+/.vscode/
+/.idea/
+/YelpCamp.sublime-project
 #Old versions
 /.Old Versions/
-/.vscode/
-# End of https://www.gitignore.io/api/node
-/.idea/
