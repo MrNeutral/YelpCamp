@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 //REQUIREMENTS
 const express 				= require("express"),
 	app 					= express(),
@@ -14,14 +15,13 @@ const express 				= require("express"),
 	indexRoutes				= require("./routes/index"),
 	flash 					= require("connect-flash"),
 	middleware				= require("./middleware"),
-	methodOverride 			= require("method-override");
+	methodOverride 			= require("method-override"),
 	seedDB					= require("./seedDB");
 
 //CONFIGURATION
 // mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
-const url = "mongodb://cha0snation:as10xzxz@ds137404.mlab.com:37404/yelpcamp-thanas_pulaj",
-	localUrl = "mongodb://localhost:27017/yelp_camp";
-mongoose.connect(url || localUrl, { useNewUrlParser: true });
+const url = "mongodb://cha0snation:as10xzxz@ds137404.mlab.com:37404/yelpcamp-thanas_pulaj";
+mongoose.connect(url, { useNewUrlParser: true });
 mongoose.set("useFindAndModify", false);
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
@@ -54,8 +54,8 @@ app.get("*", function(req, res){
 	res.send("Page not found.");
 });
 //ROUTES END
-seedDB();
+// seedDB();
 //SERVER CONFIG
 app.listen(process.env.PORT || 3000, function(){
-	console.log("YelpCamp v11 Server has started.");
+	console.log("YelpCamp Server has started.");
 });

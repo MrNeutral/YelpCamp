@@ -37,7 +37,7 @@ router.get("/new", mdw.isLoggedIn, function(req, res){
 });
 
 router.get("/:id", function(req, res){
-	Campground.findById(req.params.id).populate("comments").exec(function(err, found){
+	Campground.findOne({"_id": req.params.id}).populate("comments").exec(function(err, found){
 		if(err){
 			console.log(err);
 			req.flash("error", "Campground not found");
@@ -49,7 +49,7 @@ router.get("/:id", function(req, res){
 });
 
 router.get("/:id/edit", mdw.checkCampgroundOwnership, function(req, res){
-	Campground.findById(req.params.id, function(err, foundCampground){
+	Campground.findOne({"_id": req.params.id}, function(err, foundCampground){
 		if(err){
 			console.log(err);
 			req.flash("error", "Campground not found");
@@ -61,7 +61,7 @@ router.get("/:id/edit", mdw.checkCampgroundOwnership, function(req, res){
 });
 
 router.put("/:id", mdw.checkCampgroundOwnership, function(req, res){
-	Campground.findOneAndUpdate(req.params.id, req.body.campground, function(err){
+	Campground.findOneAndUpdate({"_id": req.params.id}, req.body.campground, function(err){
 		if(err){
 			console.log(err);
 			req.flash("error", err.message);
@@ -73,15 +73,15 @@ router.put("/:id", mdw.checkCampgroundOwnership, function(req, res){
 	});
 });
 
-router.delete("/delete", mdw.checkCampgroundOwnership, function(req, res){
-	Campground.findOneAndDelete(req.params.id, function(err){
+router.delete("/:id", mdw.checkCampgroundOwnership, function(req, res){
+	Campground.findOneAndDelete({"_id": req.params.id}, function(err){
 		if(err){
 			console.log(err);
 			req.flash("error", err.message);
-			req.redirect("/campgrounds/" + req.params.id);
+			req.redirect("/campgrounds/");
 		} else {
 			req.flash("success", "Campground deleted");
-			res.redirect("back");
+			res.redirect("/campgrounds");
 		}
 	});
 });

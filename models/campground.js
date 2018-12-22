@@ -5,6 +5,7 @@ var campgroundSchema = new mongoose.Schema({
 	image: String,
 	description: String,
 	price: String,
+	isPlaceholder: {type: Boolean, default: false},
 	comments: [
 		{
 			type: mongoose.Schema.Types.ObjectId,

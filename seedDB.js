@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require("mongoose"),
 	Campground = require("./models/campground"),
 	Comment    = require("./models/comment");
@@ -9,7 +10,8 @@ var campSeeds 	 = [
 		price: "9.5",
 		poster: {
 			username: "Admin"
-		}
+		},
+		isPlaceholder: true
 	},
 	{
 		name: "Yosemite Westlake",
@@ -18,7 +20,8 @@ var campSeeds 	 = [
 		price: "9.5",
 		poster: {
 			username: "Admin"
-		}
+		},
+		isPlaceholder: true
 	},
 	{
 		name: "Dry River",
@@ -27,7 +30,8 @@ var campSeeds 	 = [
 		price: "9.5",
 		poster: {
 			username: "Admin"
-		}
+		},
+		isPlaceholder: true
 	},
 	{
 		name: "Ocean Cove",
@@ -36,7 +40,8 @@ var campSeeds 	 = [
 		price: "8",
 		poster: {
 			username: "Admin"
-		}
+		},
+		isPlaceholder: true
 	},
 	{
 		name: "Hoosier National Forest",
@@ -45,7 +50,8 @@ var campSeeds 	 = [
 		price: "10",
 		poster: {
 			username: "Admin"
-		}
+		},
+		isPlaceholder: true
 	},
 	{
 		name: "Mustand Ridge",
@@ -54,7 +60,8 @@ var campSeeds 	 = [
 		price: "9",
 		poster: {
 			username: "Admin"
-		}
+		},
+		isPlaceholder: true
 	},
 	{
 		name: "Bootjack Camp",
@@ -63,7 +70,8 @@ var campSeeds 	 = [
 		price: "9",
 		poster: {
 			username: "Admin"
-		}
+		},
+		isPlaceholder: true
 	},
 	{
 		name: "Shady Brook",
@@ -72,7 +80,8 @@ var campSeeds 	 = [
 		price: "8",
 		poster: {
 			username: "Admin"
-		}
+		},
+		isPlaceholder: true
 	}
 ];
 var commentSeeds = [
@@ -80,52 +89,57 @@ var commentSeeds = [
 		author: {
 			username: "John Doe"
 		},
-		body: "This place is great in a mediocre way."
+		body: "This place is great in a mediocre way.",
+		isPlaceholder: true
 	},
 	{
 		author: {
 			username: "Jane Doe"
 		},
-		body: "This place mediocre in a great way."
+		body: "This place is mediocre in a great way.",
+		isPlaceholder: true
 	},
 	{
 		author: {
 			username: "Boby Bob"
 		},
-		body: "This place boring."
+		body: "This place is boring.",
+		isPlaceholder: true
 	},
 	{
 		author: {
 			username: "Destitute Rick"
 		},
-		body: "This place is above my pay-grade."
+		body: "This place is above my pay-grade.",
+		isPlaceholder: true
 	},
 	{
 		author: {
 			username: "Jerry Jim"
 		},
-		body: "This place is just great."
+		body: "This place is just great.",
+		isPlaceholder: true
 	}
 ];
 
 //taken from StackOverflow
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+	var currentIndex = array.length, temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
 
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
 
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
 
-  return array;
+	return array;
 }
 
 async function seedDB(){

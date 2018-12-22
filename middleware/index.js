@@ -13,7 +13,7 @@ var middleware = {
 	checkCampgroundOwnership: function(req, res ,next){
 		if(req.isAuthenticated()){
 			Campground.findById(req.params.id, function(err, campground){
-				if(campground.poster.id.equals(req.user.id)){
+				if(req.user.isAdmin || campground.poster.id.equals(req.user.id)){
 					next();
 				} else {
 					req.flash("error", "You don't have permission for that.");
@@ -28,7 +28,7 @@ var middleware = {
 	checkCommentOwnership: function(req, res ,next){
 		if(req.isAuthenticated()){
 			Comment.findById(req.params.comment_id, function(err, comment){
-				if(comment.author.id.equals(req.user.id)){
+				if(req.user.isAdmin || comment.author.id.equals(req.user.id)){
 					next();
 				} else {
 					req.flash("error", "You don't have permission for that.");

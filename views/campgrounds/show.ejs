@@ -20,7 +20,7 @@
 						</div>
 						<p class="card-text"><%=campground.description%></p>
 						<p><em>Submitted by: <%=campground.poster.username%></em></p>
-						<% if (currentUser && campground.poster.id.equals(currentUser.id)) { %>
+						<% if ((currentUser && !campground.isPlaceholder && campground.poster.id.equals(currentUser.id)) || (currentUser && currentUser.isAdmin)) { %>
 							<a href="/campgrounds/<%=campground._id%>/edit" class="btn btn-sm btn-primary">Edit</a>
 							<form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST" class="d-inline">
 								<button class="btn btn-sm btn-danger">Delete</button>
@@ -36,7 +36,7 @@
 							<div class="container py-1">
 								<span class="font-weight-bold"><%=comment.author.username%></span>
 								<p><%=comment.body%></p>
-								<% if (currentUser && comment.author.id.equals(currentUser.id)) { %>
+								<% if ((currentUser && !comment.isPlaceholder && comment.author.id.equals(currentUser.id)) || (currentUser && currentUser.isAdmin)) { %>
 									<a href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit" class="btn btn-sm btn-primary">Edit</a>
 									<form action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST" class="d-inline">
 										<button class="btn btn-sm btn-danger">Delete</button>

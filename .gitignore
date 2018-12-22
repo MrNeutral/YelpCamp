@@ -86,3 +86,4 @@ typings/
 *.sublime*
 #Old versions
 /.Old Versions/
+*.code-workspace

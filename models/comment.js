@@ -8,6 +8,7 @@ var commentSchema = new mongoose.Schema({
 		},
 		username: String
 	},
+	isPlaceholder: {type: Boolean, default: false},
 	body: String
 });
 
