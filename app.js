@@ -21,7 +21,7 @@ const express 				= require("express"),
 // mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
 const url = "mongodb://cha0snation:as10xzxz@ds137404.mlab.com:37404/yelpcamp-thanas_pulaj",
 	localUrl = "mongodb://localhost:27017/yelp_camp";
-mongoose.connect(localUrl || url, { useNewUrlParser: true });
+mongoose.connect(url || localUrl, { useNewUrlParser: true });
 mongoose.set("useFindAndModify", false);
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
