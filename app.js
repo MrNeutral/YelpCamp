@@ -1,30 +1,27 @@
 //REQUIREMENTS
-var express 				= require("express"),
+const express 				= require("express"),
 	app 					= express(),
 	bodyParser  			= require("body-parser"),
 	mongoose 				= require("mongoose"),
 	passport				= require("passport"),
 	LocalStrategy			= require("passport-local"),
-	// eslint-disable-next-line no-unused-vars
 	passportLocalMongoose	= require("passport-local-mongoose"),
 	User 					= require("./models/user"),
-	// eslint-disable-next-line no-unused-vars
 	Campground  			= require("./models/campground"),
-	// eslint-disable-next-line no-unused-vars
 	Comment					= require("./models/comment"),
 	campgroundRoutes		= require("./routes/campgrounds"),
 	commentRoutes			= require("./routes/comments"),
 	indexRoutes				= require("./routes/index"),
 	flash 					= require("connect-flash"),
-	// eslint-disable-next-line no-unused-vars
 	middleware				= require("./middleware"),
 	methodOverride 			= require("method-override");
-	// eslint-disable-next-line no-unused-vars
-	// seedDB					= require("./seedDB");
+	seedDB					= require("./seedDB");
 
 //CONFIGURATION
 // mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
-mongoose.connect("mongodb://cha0snation:as10xzxz@ds137404.mlab.com:37404/yelpcamp-thanas_pulaj", { useNewUrlParser: true });
+const url = "mongodb://cha0snation:as10xzxz@ds137404.mlab.com:37404/yelpcamp-thanas_pulaj",
+	localUrl = "mongodb://localhost:27017/yelp_camp";
+mongoose.connect(localUrl || url, { useNewUrlParser: true });
 mongoose.set("useFindAndModify", false);
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
@@ -57,7 +54,7 @@ app.get("*", function(req, res){
 	res.send("Page not found.");
 });
 //ROUTES END
-// seedDB();
+seedDB();
 //SERVER CONFIG
 app.listen(process.env.PORT || 3000, function(){
 	console.log("YelpCamp v11 Server has started.");
