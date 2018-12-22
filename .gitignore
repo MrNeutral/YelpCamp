@@ -83,9 +83,6 @@ typings/
 .dynamodb/
 
 #Unneeded
-/YelpCamp.code-workspace
-/.vscode/
-/.idea/
-/YelpCamp.sublime-project
+*.sublime*
 #Old versions
 /.Old Versions/
