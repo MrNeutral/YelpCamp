@@ -81,9 +81,9 @@ typings/
 
 #DynamoDB Local files
 .dynamodb/
-
 #Unneeded
 *.sublime*
 #Old versions
 /.Old Versions/
 *.code-workspace
+.jshintrc

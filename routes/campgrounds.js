@@ -1,24 +1,26 @@
-var express = require("express"),
-	Campground = require("../models/campground"),
-	router = express.Router(),
-	mdw 	= require("../middleware");
+var express 	= require("express"),
+	Campground  = require("../models/campground"),
+	router 		= express.Router(),
+	mdw 		= require("../middleware");
 
 
-router.get("/", function(req, res){
-	Campground.find({}, function(err, found){
-		if(err){
+router.get("/", function (req, res) {
+	Campground.find({}, function (err, found) {
+		if (err) {
 			console.log(err);
 			req.flash("error", "Something went wrong");
 			res.redirect("/");
 		} else {
-			res.render("campgrounds/index", {campgrounds: found});
+			res.render("campgrounds/index", {
+				campgrounds: found
+			});
 		}
 	});
 });
 
-router.post("/", mdw.isLoggedIn, function(req,res){
-	Campground.create(req.body.campground, function(err, campground){
-		if(err){
+router.post("/", mdw.isLoggedIn, function (req, res) {
+	Campground.create(req.body.campground, function (err, campground) {
+		if (err) {
 			console.log(err);
 			req.flash("error", err.message);
 			res.redirect("/campgrounds");
@@ -32,37 +34,47 @@ router.post("/", mdw.isLoggedIn, function(req,res){
 	});
 });
 
-router.get("/new", mdw.isLoggedIn, function(req, res){
+router.get("/new", mdw.isLoggedIn, function (req, res) {
 	res.render("campgrounds/new");
 });
 
-router.get("/:id", function(req, res){
-	Campground.findOne({"_id": req.params.id}).populate("comments").exec(function(err, found){
-		if(err){
+router.get("/:id", function (req, res) {
+	Campground.findOne({
+		"_id": req.params.id
+	}).populate("comments").exec(function (err, found) {
+		if (err) {
 			console.log(err);
 			req.flash("error", "Campground not found");
 			res.redirect("/campgrounds");
 		} else {
-			res.render("campgrounds/show", {campground: found});
+			res.render("campgrounds/show", {
+				campground: found
+			});
 		}
 	});
 });
 
-router.get("/:id/edit", mdw.checkCampgroundOwnership, function(req, res){
-	Campground.findOne({"_id": req.params.id}, function(err, foundCampground){
-		if(err){
+router.get("/:id/edit", mdw.checkCampgroundOwnership, function (req, res) {
+	Campground.findOne({
+		"_id": req.params.id
+	}, function (err, foundCampground) {
+		if (err) {
 			console.log(err);
 			req.flash("error", "Campground not found");
 			res.redirect("/campgrounds");
 		} else {
-			res.render("campgrounds/edit", {campground: foundCampground});
+			res.render("campgrounds/edit", {
+				campground: foundCampground
+			});
 		}
 	});
 });
 
-router.put("/:id", mdw.checkCampgroundOwnership, function(req, res){
-	Campground.findOneAndUpdate({"_id": req.params.id}, req.body.campground, function(err){
-		if(err){
+router.put("/:id", mdw.checkCampgroundOwnership, function (req, res) {
+	Campground.findOneAndUpdate({
+		"_id": req.params.id
+	}, req.body.campground, function (err) {
+		if (err) {
 			console.log(err);
 			req.flash("error", err.message);
 			req.redirect("/campgrounds/" + req.params.id);
@@ -73,9 +85,11 @@ router.put("/:id", mdw.checkCampgroundOwnership, function(req, res){
 	});
 });
 
-router.delete("/:id", mdw.checkCampgroundOwnership, function(req, res){
-	Campground.findOneAndDelete({"_id": req.params.id}, function(err){
-		if(err){
+router.delete("/:id", mdw.checkCampgroundOwnership, function (req, res) {
+	Campground.findOneAndDelete({
+		"_id": req.params.id
+	}, function (err) {
+		if (err) {
 			console.log(err);
 			req.flash("error", err.message);
 			req.redirect("/campgrounds/");
