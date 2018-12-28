@@ -22,7 +22,7 @@ const express 				= require("express"),
 const URL = "mongodb://localhost:27017/yelp_camp";
 mongoose.connect(process.env.DATABASE_URL || URL, {
 	useNewUrlParser: true
-});
+}).catch(err => console.log(err));
 mongoose.set("useFindAndModify", false);
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
