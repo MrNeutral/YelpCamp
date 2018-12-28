@@ -19,9 +19,8 @@ const express 				= require("express"),
 	seedDB					= require("./seedDB");
 
 //CONFIGURATION
-// mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
-const url = "mongodb://cha0snation:as10xzxz@ds137404.mlab.com:37404/yelpcamp-thanas_pulaj";
-mongoose.connect(url, {
+const URL = "mongodb://localhost:27017/yelp_camp";
+mongoose.connect(process.env.DATABASE_URL || URL, {
 	useNewUrlParser: true
 });
 mongoose.set("useFindAndModify", false);
