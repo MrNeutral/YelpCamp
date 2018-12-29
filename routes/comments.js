@@ -21,7 +21,7 @@ var express 	= require("express"),
 // 	});
 // });
 
-router.post("/", function (req, res) {
+router.post("/", mdw.isLoggedIn, function (req, res) {
 	Campground.findOne({
 		"_id": req.params.id
 	}, function (err, campground) {
@@ -66,7 +66,7 @@ router.post("/", function (req, res) {
 // 	});
 // });
 
-router.put("/:comment_id", function (req, res) {
+router.put("/:comment_id", mdw.checkCommentOwnership, function (req, res) {
 	Comment.findOneAndUpdate({
 		"_id": req.params.comment_id
 	}, req.body.comment, function (err) {
@@ -81,7 +81,7 @@ router.put("/:comment_id", function (req, res) {
 	});
 });
 
-router.delete("/:comment_id", function (req, res) {
+router.delete("/:comment_id", mdw.checkCommentOwnership, function (req, res) {
 	Comment.findOneAndDelete({
 		"_id": req.params.comment_id
 	}, function (err) {

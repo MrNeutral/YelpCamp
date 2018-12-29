@@ -1,3 +1,5 @@
 $(".submit").on("click", function() {
-	$(this).parent().prev().find("form").submit();
+	if($(this).parent().prev().find("form").find("input").val() !== ""){
+		$(this).parent().prev().find("form").submit();
+	}
 });
