@@ -7,19 +7,19 @@ var express 	= require("express"),
 	mdw 		= require("../middleware");
 
 
-router.get("/new", mdw.isLoggedIn, function (req, res) {
-	Campground.findById(req.params.id, function (err, found) {
-		if (err) {
-			console.log(err);
-			req.flash("error", "Campground not found");
-			res.redirect("back");
-		} else {
-			res.render("comments/new", {
-				campground: found
-			});
-		}
-	});
-});
+// router.get("/new", mdw.isLoggedIn, function (req, res) {
+// 	Campground.findById(req.params.id, function (err, found) {
+// 		if (err) {
+// 			console.log(err);
+// 			req.flash("error", "Campground not found");
+// 			res.redirect("back");
+// 		} else {
+// 			res.render("comments/new", {
+// 				campground: found
+// 			});
+// 		}
+// 	});
+// });
 
 router.post("/", function (req, res) {
 	Campground.findOne({
@@ -49,22 +49,22 @@ router.post("/", function (req, res) {
 	});
 });
 
-router.get("/:comment_id/edit", function (req, res) {
-	Comment.findOne({
-		"_id": req.params.comment_id
-	}, function (err, foundComment) {
-		if (err) {
-			console.log(err);
-			req.flash("error", "Campground not found");
-			res.redirect("/campgrounds" + req.params.id);
-		} else {
-			res.render("comments/edit", {
-				campground_id: req.params.id,
-				comment: foundComment
-			});
-		}
-	});
-});
+// router.get("/:comment_id/edit", function (req, res) {
+// 	Comment.findOne({
+// 		"_id": req.params.comment_id
+// 	}, function (err, foundComment) {
+// 		if (err) {
+// 			console.log(err);
+// 			req.flash("error", "Campground not found");
+// 			res.redirect("/campgrounds" + req.params.id);
+// 		} else {
+// 			res.render("comments/edit", {
+// 				campground_id: req.params.id,
+// 				comment: foundComment
+// 			});
+// 		}
+// 	});
+// });
 
 router.put("/:comment_id", function (req, res) {
 	Comment.findOneAndUpdate({
