@@ -27,6 +27,7 @@ router.post("/", mdw.isLoggedIn, function (req, res) {
 		} else {
 			campground.poster.id = req.user._id;
 			campground.poster.username = req.user.username;
+			campground.poster.isAdmin = req.user.isAdmin;
 			campground.save();
 			req.flash("success", "Campground added");
 			res.redirect("campgrounds");

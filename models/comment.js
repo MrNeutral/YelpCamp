@@ -6,7 +6,8 @@ var commentSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User"
 		},
-		username: String
+		username: String,
+		isAdmin: {type: Boolean, default: false}
 	},
 	isPlaceholder: {type: Boolean, default: false},
 	body: String

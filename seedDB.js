@@ -9,7 +9,8 @@ var campSeeds 	 = [
 		description: "A cave that mammoths lived in, probably.",
 		price: "9.5",
 		poster: {
-			username: "Admin"
+			username: "Admin",
+			isAdmin: true
 		},
 		isPlaceholder: true
 	},
@@ -19,7 +20,8 @@ var campSeeds 	 = [
 		description: "The west lake of Yosemite I guess ?",
 		price: "9.5",
 		poster: {
-			username: "Admin"
+			username: "Admin",
+			isAdmin: true
 		},
 		isPlaceholder: true
 	},
@@ -29,7 +31,8 @@ var campSeeds 	 = [
 		description: "How the fuck can there be a dry river ?!",
 		price: "9.5",
 		poster: {
-			username: "Admin"
+			username: "Admin",
+			isAdmin: true
 		},
 		isPlaceholder: true
 	},
@@ -39,7 +42,8 @@ var campSeeds 	 = [
 		description: "There's an ocean, what more do you want ?",
 		price: "8",
 		poster: {
-			username: "Admin"
+			username: "Admin",
+			isAdmin: true
 		},
 		isPlaceholder: true
 	},
@@ -49,7 +53,8 @@ var campSeeds 	 = [
 		description: "A campground inside a forest.",
 		price: "10",
 		poster: {
-			username: "Admin"
+			username: "Admin",
+			isAdmin: true
 		},
 		isPlaceholder: true
 	},
@@ -59,7 +64,8 @@ var campSeeds 	 = [
 		description: "The ridge of Mustang.",
 		price: "9",
 		poster: {
-			username: "Admin"
+			username: "Admin",
+			isAdmin: true
 		},
 		isPlaceholder: true
 	},
@@ -69,7 +75,8 @@ var campSeeds 	 = [
 		description: "Your boots are gonna get jacked.",
 		price: "9",
 		poster: {
-			username: "Admin"
+			username: "Admin",
+			isAdmin: true
 		},
 		isPlaceholder: true
 	},
@@ -79,7 +86,8 @@ var campSeeds 	 = [
 		description: "Lots of shady deals here.",
 		price: "8",
 		poster: {
-			username: "Admin"
+			username: "Admin",
+			isAdmin: true
 		},
 		isPlaceholder: true
 	}
@@ -141,7 +149,7 @@ function shuffle(array) {
 
 	return array;
 }
-
+/* jshint ignore:start */
 async function seedDB(){
 	await Comment.deleteMany({});
 	console.log("Comments Deleted");
@@ -160,5 +168,7 @@ async function seedDB(){
 		}
 	}
 }
+/* jshint ignore:end */
+
 
 module.exports = seedDB;

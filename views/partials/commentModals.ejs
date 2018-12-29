@@ -1,10 +1,10 @@
-<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCommentModal">Edit</button>
-<div class="modal fade" id="editCommentModal" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel"
+<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCommentModal<%=i%>">Edit</button>
+<div class="modal fade" id="editCommentModal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel<%=i%>"
 aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editCommentModalLabel">Edit comment</h5>
+                <h5 class="modal-title" id="editCommentModalLabel<%=i%>">Edit comment</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -15,6 +15,7 @@ aria-hidden="true">
                         <div class="row mt-1 container py-0">
                             <label for="comment[body]" class="col-sm-3 col-form-label">Comment:</label>
                             <input class="col-sm-9 form-control mt-1" type="text" name="comment[body]" value="<%=comment.body%>" required>
+                            <input type="submit" style="display: none">
                         </div>
                     </div>
                 </form>
@@ -26,13 +27,13 @@ aria-hidden="true">
         </div>
     </div>
 </div>
-<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommentModal">Delete</button>
-<div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel"
+<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommentModal<%=i%>">Delete</button>
+<div class="modal fade" id="deleteCommentModal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel<%=i%>"
 aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteCommentModalLabel">Delete comment</h5>
+                <h5 class="modal-title" id="deleteCommentModalLabel<%=i%>">Delete comment</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
