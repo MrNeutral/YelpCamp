@@ -4,19 +4,19 @@ var express 	= require("express"),
 	mdw 		= require("../middleware");
 
 
-router.get("/", function (req, res) {
-	Campground.find({}, function (err, found) {
-		if (err) {
-			console.log(err);
-			req.flash("error", "Something went wrong");
-			res.redirect("/");
-		} else {
-			res.render("campgrounds/index", {
-				campgrounds: found
-			});
-		}
-	});
-});
+// router.get("/", function (req, res) {
+// 	Campground.find({}, function (err, found) {
+// 		if (err) {
+// 			console.log(err);
+// 			req.flash("error", "Something went wrong");
+// 			res.redirect("/");
+// 		} else {
+// 			res.render("campgrounds/index", {
+// 				campgrounds: found
+// 			});
+// 		}
+// 	});
+// });
 
 router.post("/", mdw.isLoggedIn, function (req, res) {
 	Campground.create(req.body.campground, function (err, campground) {
@@ -55,21 +55,21 @@ router.get("/:id", function (req, res) {
 	});
 });
 
-router.get("/:id/edit", mdw.checkCampgroundOwnership, function (req, res) {
-	Campground.findOne({
-		"_id": req.params.id
-	}, function (err, foundCampground) {
-		if (err) {
-			console.log(err);
-			req.flash("error", "Campground not found");
-			res.redirect("/campgrounds");
-		} else {
-			res.render("campgrounds/edit", {
-				campground: foundCampground
-			});
-		}
-	});
-});
+// router.get("/:id/edit", mdw.checkCampgroundOwnership, function (req, res) {
+// 	Campground.findOne({
+// 		"_id": req.params.id
+// 	}, function (err, foundCampground) {
+// 		if (err) {
+// 			console.log(err);
+// 			req.flash("error", "Campground not found");
+// 			res.redirect("/campgrounds");
+// 		} else {
+// 			res.render("campgrounds/edit", {
+// 				campground: foundCampground
+// 			});
+// 		}
+// 	});
+// });
 
 router.put("/:id", mdw.checkCampgroundOwnership, function (req, res) {
 	Campground.findOneAndUpdate({

@@ -30,10 +30,7 @@
 							<%}%>
 						</p>
 						<% if ((currentUser && !campground.isPlaceholder && campground.poster.id.equals(currentUser.id)) || (currentUser && currentUser.isAdmin)) { %>
-							<a href="/campgrounds/<%=campground._id%>/edit" class="btn btn-sm btn-primary">Edit</a>
-							<form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST" class="d-inline">
-								<button class="btn btn-sm btn-danger">Delete</button>
-							</form>
+							<%include ../partials/campgroundModal%>
 						<% } %>
 						<div class="text-right">
 							<%if (!currentUser){%>

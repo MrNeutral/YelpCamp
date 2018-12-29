@@ -1,0 +1,64 @@
+<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCampgroundModal">Edit</button>
+<div class="modal fade" id="editCampgroundModal" tabindex="-1" role="dialog" aria-labelledby="editCampgroundModalLabel"
+aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCampgroundModalLabel">Edit <%=campground.name%></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/campgrounds/<%=campground._id%>?_method=PUT" method="POST" class="form-group">
+                    <div class="form-group container py-0">
+                        <div class="row">
+                            <label for="campground[name]" class="pl-0 col-sm-3 col-form-label">Name:</label>
+                            <input class="col-sm-9 form-control" type="text" name="campground[name]" value="<%=campground.name%>" required>
+                        </div>
+                        <div class="row mt-1">
+                            <label for="campground[image]" class="pl-0 col-sm-3 col-form-label">Image URL:</label>
+                            <input class="col-sm-9 form-control" type="url" name="campground[image]" value="<%=campground.image%>" required>
+                        </div>
+                        <div class="row mt-1">
+                            <label for="campground[image]" class="pl-0 col-sm-3 col-form-label">Pricing:</label>
+                            <input class="col-sm-9 form-control" type="number" name="campground[price]" value="<%=campground.price%>" min="0.01" step="0.01" required>
+                        </div>
+                        <div class="row mt-1">
+                            <label for="campground[description]" class="pl-0 col-sm-3 col-form-label">Description:</label>
+                            <textarea class="col-sm-9 form-control" name="campground[description]" required><%=campground.description%></textarea>
+                        </div>
+                    </div>
+                    <input type="submit" style="display: none">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-block btn-primary submit" type="submit">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCampgroundModal">Delete</button>
+<div class="modal fade" id="deleteCampgroundModal" tabindex="-1" role="dialog" aria-labelledby="deleteCampgroundModalLabel"
+aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCampgroundModalLabel">Delete <%=campground.name%></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <span class=>Are you sure you want to delete <%=campground.name%> ?</span>
+                <form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST" class="d-inline">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-block btn-danger submit" type="submit">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
