@@ -11,15 +11,21 @@
 			</div>
 			<div class="col-md-9 align-items-end">
 				<div class="card">
-					<h1 class="pl-2 card-title"><%=campground.name%></h1>
+					<h1 class="pl-2 card-title">
+						<%=campground.name%>
+					</h1>
 					<img class="img-fluid card-image" src="<%=campground.image%>">
 					<div class="p-2 card-body">
 						<div class="row justify-content-between">
 							<h4 class="col-sm-6 text-left">Rating:</h4>
 							<h4 class="col-sm-6 text-right">$<%=campground.price%>/Night</h4>
 						</div>
-						<p class="card-text"><%=campground.description%></p>
-						<p><em>Submitted by: <%=campground.poster.username%></em></p>
+						<p class="card-text">
+							<%=campground.description%>
+						</p>
+						<p>
+							<em>Submitted by:<%=campground.poster.username%></em>
+						</p>
 						<% if ((currentUser && !campground.isPlaceholder && campground.poster.id.equals(currentUser.id)) || (currentUser && currentUser.isAdmin)) { %>
 							<a href="/campgrounds/<%=campground._id%>/edit" class="btn btn-sm btn-primary">Edit</a>
 							<form action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST" class="d-inline">
@@ -27,25 +33,75 @@
 							</form>
 						<% } %>
 						<div class="text-right">
-							<a class="btn btn-sm btn-success" href="/campgrounds/<%=campground._id%>/comments/new" >Add New Comment</a>
+							<a class="btn btn-sm btn-success" href="/campgrounds/<%=campground._id%>/comments/new">Add New Comment</a>
 						</div>
 					</div>
 					<%if(campground.comments.length != 0){%>
-					<div class="container py-2 darker">
-						<%campground.comments.forEach(function(comment){%>
-							<div class="container py-1">
-								<span class="font-weight-bold"><%=comment.author.username%></span>
-								<p><%=comment.body%></p>
-								<% if ((currentUser && !comment.isPlaceholder && comment.author.id.equals(currentUser.id)) || (currentUser && currentUser.isAdmin)) { %>
-									<a href="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>/edit" class="btn btn-sm btn-primary">Edit</a>
-									<form action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST" class="d-inline">
-										<button class="btn btn-sm btn-danger">Delete</button>
-									</form>
-								<% } %>
-								<hr class="mx-auto">
-							</div>
-						<%})%>
-					</div>
+						<div class="container py-2 darker">
+							<%campground.comments.forEach(function(comment){%>
+								<div class="container py-1">
+									<span class="font-weight-bold">
+										<%=comment.author.username%></span>
+									<p>
+										<%=comment.body%>
+									</p>
+									<% if ((currentUser && !comment.isPlaceholder && comment.author.id.equals(currentUser.id)) || (currentUser && currentUser.isAdmin)) { %>
+										<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCommentModal">Edit</button>
+										<div class="modal fade" id="editCommentModal" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel"
+										aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="editCommentModalLabel">Edit comment</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<form action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=PUT" method="POST" class="form-group">
+															<div class="form-group">
+																<div class="row mt-1 container py-0">
+																	<label for="comment[body]" class="col-sm-3 col-form-label">Comment:</label>
+																	<input class="col-sm-9 form-control mt-1" type="text" name="comment[body]" value="<%=comment.body%>">
+																</div>
+															</div>
+														</form>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														<button class="btn btn-block btn-primary submit" type="submit">Submit</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommentModal">Delete</button>
+										<div class="modal fade" id="deleteCommentModal" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel"
+										aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="deleteCommentModalLabel">Delete comment</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body text-center">
+														<span class=>Are you sure you want to delete your comment ?</span>
+														<form action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST" class="d-inline">
+														</form>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+														<button class="btn btn-block btn-danger submit" type="submit">Delete</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									<% } %>
+									<hr class="mx-auto">
+								</div>
+							<%})%>
+						</div>
 					<%}%>
 				</div>
 			</div>
