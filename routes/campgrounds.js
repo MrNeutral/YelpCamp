@@ -4,19 +4,19 @@ var express 	= require("express"),
 	mdw 		= require("../middleware");
 
 
-// router.get("/", function (req, res) {
-// 	Campground.find({}, function (err, found) {
-// 		if (err) {
-// 			console.log(err);
-// 			req.flash("error", "Something went wrong");
-// 			res.redirect("/");
-// 		} else {
-// 			res.render("campgrounds/index", {
-// 				campgrounds: found
-// 			});
-// 		}
-// 	});
-// });
+router.get("/", function (req, res) {
+	Campground.find({}, function (err, found) {
+		if (err) {
+			console.log(err);
+			req.flash("error", "Something went wrong");
+			res.redirect("/");
+		} else {
+			res.render("campgrounds/index", {
+				campgrounds: found
+			});
+		}
+	});
+});
 
 router.post("/", mdw.isLoggedIn, function (req, res) {
 	Campground.create(req.body.campground, function (err, campground) {
@@ -35,9 +35,9 @@ router.post("/", mdw.isLoggedIn, function (req, res) {
 	});
 });
 
-router.get("/new", mdw.isLoggedIn, function (req, res) {
-	res.render("campgrounds/new");
-});
+// router.get("/new", mdw.isLoggedIn, function (req, res) {
+// 	res.render("campgrounds/new");
+// });
 
 router.get("/:id", function (req, res) {
 	Campground.findOne({

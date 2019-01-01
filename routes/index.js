@@ -2,7 +2,8 @@
 var express 	= require("express"),
 	User 		= require("../models/user"),
 	passport 	= require("passport"),
-	router 		= express.Router();
+	router 		= express.Router(),
+	mdw  		= require("../middleware");
 
 
 router.get("/", function (req, res) {
@@ -27,7 +28,7 @@ router.post("/register", function (req, res) {
 	var newUser = {
 		username: req.body.username
 	};
-	if (req.body.adminAuth == "flatisjustice") {
+	if (req.body.adminAuth == process.env.ADMIN_CODE || (!process.env.ADMIN_CODE && req.body.adminAuth == "admincode")) {
 		newUser.isAdmin = true;
 	}
 	User.register(newUser, req.body.password, function (err, user) {
@@ -48,6 +49,26 @@ router.get("/logout", function (req, res) {
 	req.flash("success", "Logout successful");
 	res.redirect("/campgrounds");
 });
+/* jshint ignore:start */
+router.get("/user/:user_id", function(req, res){
+	User.findOne({"_id": req.params.user_id}, async function(err, user){
+		user.comments = await User.getComments(req.params.user_id);
+		user.campgrounds = await User.getCampgrounds(req.params.user_id);
+		let intervalId = setInterval(async function(){
+			if(!user.campgrounds){
+				user.campgrounds = await User.getCampgrounds(req.params.user_id);
+			}
+			if(!user.comments){
+				user.comments = await User.getComments(req.params.user_id);
+			}
+			if(user.campgrounds && user.comments){
+				clearInterval(intervalId);
+				res.render("users/show", {user});
+			}
+		}, 500);
+	});
+});
+/* jshint ignore:end */
 
 
 module.exports = router;

@@ -1,0 +1,38 @@
+<%include ../partials/header%>
+    <div class="container card card-body">
+        <div class="row">
+            <div class="col-md-3 container py-2">
+                <div class="card">
+                    <h2 class="text-center"><%=user.username%></h2>
+                    <img src="../default-user.png" class="img-fluid">
+                    <ul class="list-group mt-2">
+                        <li class="list-group-item">
+                            Birthday: <%=user.birthday%>
+                        </li>
+                        <li class="list-group-item">
+                            Gender: <%=user.gender%>
+                        </li>
+                        <li class="list-group-item">
+                        <%if(user.comments){%>
+                            Comments: <%=user.comments.length%>
+                        <%}%>
+                        </li>
+                        <li class="list-group-item">
+                        <%if(user.campgrounds){%>
+                            Campgrounds: <%=user.campgrounds.length%>
+                        <%}%>
+                        </li>
+                        <li class="list-group-item">
+                            Avg. Rating: <%=user.avg_rating%>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+<%include ../partials/footer%>

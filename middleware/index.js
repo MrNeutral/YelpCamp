@@ -1,6 +1,6 @@
-
 var Campground = require("../models/campground");
 var Comment = require("../models/comment");
+var ObjectId = require("mongoose").Types.ObjectId;
 
 var middleware = {
 	isLoggedIn: function(req, res, next){
