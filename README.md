@@ -5,3 +5,4 @@ Colt Steele's Web Developer Bootcamp, YelpCamp application.
  - Admin role
  - Authentication using passport-local
  - Uses MongoDB, Express.js, Node.js
+ - Fully customizable user profile
