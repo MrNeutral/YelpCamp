@@ -12,7 +12,7 @@
                     <img src="../default-user.png" class="img-fluid">
                     <ul class="list-group mt-2">
                         <li class="list-group-item">
-                            Birthday: <%=user.birthday%>
+                            Email: <%=user.email%>
                         </li>
                         <li class="list-group-item">
                             Gender: <%=user.gender%>
@@ -51,8 +51,30 @@
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                            <div class="container">
-                                Fill with profile data
+                            <div class="container py-2">
+                                <form action="/user/<%=user._id%>?_method=PUT" method="POST">
+                                    <div class="form-group">
+                                        <label for="username">Username: </label>
+                                        <input type="text" name="user[username]" class="form-control" value="<%=user.username%>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email: </label>
+                                        <input type="email" name="user[email]" class="form-control" value="<%=user.email%>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthday">Birthday: </label>
+                                        <input type="date" name="user[birthday]" class="form-control" max="2001-01-01" value="<%=user.birthday%>">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gender">Gender: </label>
+                                        <select name="user[gender]" class="form-control">
+                                            <option value="<%=user.gender%>" selected><%=user.gender%></option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-md btn-primary">Update</button>
+                                </form>
                             </div>
                         </div>
                         <div class="tab-pane fade show active hr-hide" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
@@ -94,7 +116,77 @@
                             <span>There's nothing here...</span>
                         <%}%>                 
                         </div>
-                        <div class="tab-pane fade" id="pills-settings" role="tabpanel" aria-labelledby="pills-settings-tab">...</div>
+                        <div class="tab-pane fade" id="pills-settings" role="tabpanel" aria-labelledby="pills-settings-tab">
+                            <div class="container py-2">
+                                <form action="/user/<%=user._id%>/password?_method=PUT" method="POST">
+                                    <div class="form-group">
+                                    <label for="password">New Password: </label>
+                                        <input type="password" name="password" class="form-control" required>
+                                    </div>
+                                    <button class="btn btn-sm btn-warning">Change Password</button>
+                                </form>
+                            </div>
+                            <div class="container py-2">
+                                <%if(user.isAdmin){%>
+                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#revokeAdminModal">Revoke admin rights</button>
+                                    <div class="modal fade" id="revokeAdminModal" tabindex="-1" role="dialog" aria-labelledby="revokeAdminModalLabel"
+                                    aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="revokeAdminModalLabel">Revoke Status</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body text-center">
+                                                    <span class=>Are you sure you want to revoke your admin status?</span>
+                                                    <form action="/user/<%=user._id%>/admin?_method=DELETE" method="POST" class="d-inline">
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button class="btn btn-block btn-danger submit" type="submit">Revoke</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <%} else {%>
+                                    <form action="/user/<%=user._id%>/admin" method="POST">
+                                        <div class="form-group">
+                                            <label for="adminCode">Admin Code: </label>
+                                            <input type="password" name="adminCode" placeholder="Enter Admin Code to be granted admin status" class="form-control">
+                                        </div>
+                                        <button class="btn btn-sm btn-warning">Verify</button>
+                                    </form>
+                                <%}%>
+                            </div>
+                            <div class="container py-2">
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#revokeAdminModal">Delete account</button>
+                                <div class="modal fade" id="revokeAdminModal" tabindex="-1" role="dialog" aria-labelledby="revokeAdminModalLabel"
+                                aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="revokeAdminModalLabel">Delete Account</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <span class=>Are you sure you want to delete your account?</span>
+                                                <form action="/user/<%=user._id%>?_method=DELETE" method="POST" class="d-inline">
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button class="btn btn-block btn-danger submit" type="submit">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -36,7 +36,7 @@ router.post("/register", function (req, res) {
 		if (err) {
 			console.log(err);
 			req.flash("error", err.message);
-			return res.render("users/register");
+			return res.redirect("/register");
 		}
 		passport.authenticate("local")(req, res, function () {
 			req.flash("success", "Welcome to YelpCamp, " + req.body.username);
@@ -76,6 +76,83 @@ router.get("/user/:user_id", mdw.isUser, function(req, res){
 	});
 });
 /* jshint ignore:end */
+router.put("/user/:user_id", mdw.isUser, function(req, res){
+	User.findOneAndUpdate({"_id": req.params.user_id}, req.body.user, function(err){
+		if (err) {
+			console.log(err);
+			req.flash("error", err.message);
+			res.redirect("/user/" + req.params.user_id);
+		} else {
+			req.flash("success", "User data updated");
+			res.redirect("/user/" + req.params.user_id);
+		}
+	});
+});
 
+router.put("/user/:user_id/password", mdw.isUser, function(req, res){
+	User.findOne({"_id": req.params.user_id}, function(err, user){
+		user.setPassword(req.body.password, function(err, user){
+			if (err) {
+				console.log(err);
+				req.flash("error", err.message);
+				res.redirect("/user/" + req.params.user_id);
+			} else {
+				user.save();
+				req.flash("success", "Password updated");
+				res.redirect("/user/" + req.params.user_id);
+			}
+		});
+	});
+});
+
+router.post("/user/:user_id/admin", mdw.isUser, function(req, res){
+	User.findOne({"_id": req.params.user_id}, function(err, user){
+		if (err) {
+			console.log(err);
+			req.flash("error", err.message);
+			res.redirect("/user/" + req.params.user_id);
+		} else {
+			if (req.body.adminAuth == process.env.ADMIN_CODE || (!process.env.ADMIN_CODE && req.body.adminAuth == "admincode")) {
+				user.isAdmin = true;
+				user.save();
+				req.flash("success", "Admin status granted");
+				res.redirect("/user/" + req.params.user_id);
+			} else {
+				req.flash("error", "Incorrect code");
+				res.redirect("/user/" + req.params.user_id);
+			}
+		}
+	});
+});
+
+router.delete("/user/:user_id/admin", mdw.isUser, function(req, res){
+	User.findOne({"_id": req.params.user_id}, function(err, user){
+		if (err) {
+			console.log(err);
+			req.flash("error", err.message);
+			res.redirect("/user/" + req.params.user_id);
+		} else {
+			user.isAdmin = false;
+			user.save();
+			req.flash("success", "Admin status revoked");
+			res.redirect("/user/" + req.params.user_id);
+		}
+	}
+	);
+});
+
+router.delete("/user/:user_id", mdw.isUser, function(req, res){
+	User.findOneAndDelete({"_id": req.params.user_id}, function(err, user){
+		if (err) {
+			console.log(err);
+			req.flash("error", err.message);
+			res.redirect("/user/" + req.params.user_id);
+		} else {
+			req.flash("success", "Account deleted");
+			res.redirect("/campgrounds");
+		}
+	}
+	);
+});
 
 module.exports = router;
