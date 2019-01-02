@@ -2,8 +2,13 @@
     <div class="container card card-body">
         <div class="row">
             <div class="col-md-3 container py-2">
-                <div class="card">
-                    <h2 class="text-center"><%=user.username%></h2>
+                <div class="">
+                    <h2 class="text-center">
+                    <%=user.username%> 
+                    <%if (user.isAdmin){%>
+                        <i class="fa fa-tools"></i>
+                    <%}%>
+                    </h2>
                     <img src="../default-user.png" class="img-fluid">
                     <ul class="list-group mt-2">
                         <li class="list-group-item">
@@ -28,9 +33,69 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="card">
-                    
+            <div class="col-md-9 container py-2">
+                <div class="">
+                    <ul class="nav nav-tabs" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-home" aria-selected="true">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-comments" role="tab" aria-controls="pills-profile" aria-selected="false">Comments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-campgrounds" role="tab" aria-controls="pills-contact" aria-selected="false">Campgrounds</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-settings" role="tab" aria-controls="pills-contact" aria-selected="false">Settings</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div class="container">
+                                Fill with profile data
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active hr-hide" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
+                        <%if(user.comments.length > 0){%>
+                            <%user.comments.forEach(function(comment, i){%>
+                                <div class="container py-1">
+                                    <span class="font-weight-bold"><%=comment.author.username%></span>
+                                    <a href="/campgrounds/<%=comment.postedTo._id%>"class="font-weight-bold float-right"><%=comment.postedTo.name%></a>
+                                        <%if (comment.author.isAdmin){%>
+                                            <i class="fa fa-tools"></i>
+                                        <%}%>
+                                    <p>
+                                        <%=comment.body%>
+                                    </p>
+                                    <%include ../partials/userCommentModal%>
+                                    <hr class="mx-auto">
+                                </div>
+                            <%})%>
+                        <%} else {%>
+                            <span>There's nothing here...</span>
+                        <%}%>
+                        </div>
+                        <div class="tab-pane fade hr-hide" id="pills-campgrounds" role="tabpanel" aria-labelledby="pills-campgrounds-tab">
+                        <%if(user.campgrounds.length > 0){%>
+                            <%user.campgrounds.forEach(function(campground, i){%>
+                                <div class="container py-1">
+                                    <a href="/campgrounds/<%=campground._id%>"class="font-weight-bold"><%=campground.name%></a>
+                                    <span class="font-weight-bold float-right">Price: $<%=campground.price%>/Night</span>
+                                        <%if (campground.poster.isAdmin){%>
+                                            <i class="fa fa-tools"></i>
+                                        <%}%>
+                                    <p>
+                                        <%=campground.description%>
+                                    </p>
+                                    <hr class="mx-auto">
+                                </div>
+                            <%})%>      
+                        <%} else {%>
+                            <span>There's nothing here...</span>
+                        <%}%>                 
+                        </div>
+                        <div class="tab-pane fade" id="pills-settings" role="tabpanel" aria-labelledby="pills-settings-tab">...</div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,3 +3,4 @@ $(".submit").on("click", function() {
 		$(this).parent().prev().find("form").submit();
 	}
 });
+$("#pills-tab a:first").tab("show");

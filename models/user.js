@@ -15,9 +15,7 @@ userSchema.plugin(passportLocalStrategy);
 /* jshint ignore:start */
 userSchema.statics.getComments = async function(id){
 	let comments;
-	await Comment.find({"author.id": id}, function(err, res){
-		comments =res;
-	});
+	comments = await Comment.find({"author.id": id}).populate("postedTo");
 	return comments;
 };
 /* jshint ignore:end */
@@ -25,7 +23,7 @@ userSchema.statics.getComments = async function(id){
 /* jshint ignore:start */
 userSchema.statics.getCampgrounds = async function(id){
 	let campgrounds;
-	await Campground.find({"author.id": id}, function(err, res){
+	await Campground.find({"poster.id": id}, function(err, res){
 		campgrounds = res;
 	});
 	return campgrounds;

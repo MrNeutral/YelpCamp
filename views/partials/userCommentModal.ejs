@@ -1,0 +1,52 @@
+<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editCommentModal<%=i%>">Edit</button>
+            <div class="modal fade" id="editCommentModal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel<%=i%>"
+            aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editCommentModalLabel<%=i%>">Edit comment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/campgrounds/<%=comment.postedTo%>/comments/<%=comment._id%>?_method=PUT" method="POST" class="form-group">
+                                <div class="form-group">
+                                    <div class="row mt-1 container py-0">
+                                        <label for="comment[body]" class="col-sm-3 col-form-label">Comment:</label>
+                                        <input class="col-sm-9 form-control mt-1" type="text" name="comment[body]" value="<%=comment.body%>" required>
+                                        <input type="submit" style="display: none">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-block btn-primary submit" type="submit">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteCommentModal<%=i%>">Delete</button>
+            <div class="modal fade" id="deleteCommentModal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel<%=i%>"
+            aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteCommentModalLabel<%=i%>">Delete comment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <span class=>Are you sure you want to delete your comment ?</span>
+                            <form action="/campgrounds/<%=comment.postedTo._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST" class="d-inline">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-block btn-danger submit" type="submit">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>

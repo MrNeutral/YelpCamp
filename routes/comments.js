@@ -39,6 +39,7 @@ router.post("/", mdw.isLoggedIn, function (req, res) {
 					comment.author.id = req.user._id;
 					comment.author.username = req.user.username;
 					comment.author.isAdmin = req.user.isAdmin;
+					comment.postedTo = req.params.id;
 					comment.save();
 					campground.comments.push(comment);
 					campground.save();

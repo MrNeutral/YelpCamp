@@ -17,6 +17,9 @@ hr {
 .darker {
 	background-color: #e9e9e9;
 }
-.darker :last-child > hr {
+.hr-hide :last-child > hr {
 	display: none;
+}
+:focus {
+	outline: 0;
 }

@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var Campground = require("./campground");
 
 var commentSchema = new mongoose.Schema({
 	author: {
@@ -10,7 +11,15 @@ var commentSchema = new mongoose.Schema({
 		isAdmin: {type: Boolean, default: false}
 	},
 	isPlaceholder: {type: Boolean, default: false},
-	body: String
+	body: String,
+	postedTo: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Campground"
+	}
 });
+/* jshint ignore:start */
+// commentSchema.statics.getCampground = async function(id){
+// };
+/* jshint ignore:end */
 
 module.exports = mongoose.model("Comment", commentSchema);

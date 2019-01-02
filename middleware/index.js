@@ -1,6 +1,5 @@
 var Campground = require("../models/campground");
 var Comment = require("../models/comment");
-var ObjectId = require("mongoose").Types.ObjectId;
 
 var middleware = {
 	isLoggedIn: function(req, res, next){
@@ -35,6 +34,19 @@ var middleware = {
 					res.redirect("/campgrounds/" + req.params.id);
 				}
 			});
+		} else {
+			req.flash("error", "Please login first");
+			res.redirect("/login");
+		}
+	},
+	isUser: function(req, res, next){
+		if(req.isAuthenticated()){
+			if(req.user.id == req.params.user_id){
+				next();
+			} else {
+				req.flash("error", "You don't have permission for that.");
+				res.redirect("/campgrounds");
+			}
 		} else {
 			req.flash("error", "Please login first");
 			res.redirect("/login");

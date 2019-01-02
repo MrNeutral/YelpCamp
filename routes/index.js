@@ -3,7 +3,8 @@ var express 	= require("express"),
 	User 		= require("../models/user"),
 	passport 	= require("passport"),
 	router 		= express.Router(),
-	mdw  		= require("../middleware");
+	mdw  		= require("../middleware"),
+	Comment  	= require("../models/comment");
 
 
 router.get("/", function (req, res) {
@@ -50,11 +51,17 @@ router.get("/logout", function (req, res) {
 	res.redirect("/campgrounds");
 });
 /* jshint ignore:start */
-router.get("/user/:user_id", function(req, res){
+router.get("/user/:user_id", mdw.isUser, function(req, res){
 	User.findOne({"_id": req.params.user_id}, async function(err, user){
 		user.comments = await User.getComments(req.params.user_id);
 		user.campgrounds = await User.getCampgrounds(req.params.user_id);
+		let counter = 0;
 		let intervalId = setInterval(async function(){
+			if(counter >=10){
+				clearInterval(intervalId);
+				res.render("users/show", {user});
+			}
+			counter++;
 			if(!user.campgrounds){
 				user.campgrounds = await User.getCampgrounds(req.params.user_id);
 			}

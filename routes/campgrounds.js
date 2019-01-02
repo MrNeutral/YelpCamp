@@ -35,9 +35,9 @@ router.post("/", mdw.isLoggedIn, function (req, res) {
 	});
 });
 
-// router.get("/new", mdw.isLoggedIn, function (req, res) {
-// 	res.render("campgrounds/new");
-// });
+router.get("/new", mdw.isLoggedIn, function (req, res) {
+	res.render("campgrounds/new");
+});
 
 router.get("/:id", function (req, res) {
 	Campground.findOne({
