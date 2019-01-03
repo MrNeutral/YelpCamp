@@ -6,15 +6,15 @@
 				<div class="form-group">
 					<div class="row">
 						<label for="campground[name]" class="pl-0 col-sm-3 col-form-label">Name:</label>
-						<input class="col-sm-9 form-control" type="text" name="campground[name]" value="<%=campground.name%>" required>
+						<input class="col-sm-9 form-control" type="text" name="campground[name]" value="<%=campground.name%>" required/>
 					</div>
 					<div class="row mt-1">
 						<label for="campground[image]" class="pl-0 col-sm-3 col-form-label">Image URL:</label>
-						<input class="col-sm-9 form-control" type="url" name="campground[image]" value="<%=campground.image%>" required>
+						<input class="col-sm-9 form-control" type="url" name="campground[image]" value="<%=campground.image%>" required/>
 					</div>
 					<div class="row mt-1">
 						<label for="campground[image]" class="pl-0 col-sm-3 col-form-label">Pricing:</label>
-						<input class="col-sm-9 form-control" type="number" name="campground[price]" value="<%=campground.price%>" min="0.01" step="0.01" required>
+						<input class="col-sm-9 form-control" type="number" name="campground[price]" placeholder="$9.00 (per night)" min="0.01" step="0.01" required/>
 					</div>
 					<div class="row mt-1">
 						<label for="campground[description]" class="pl-0 col-sm-3 col-form-label">Description:</label>
@@ -23,7 +23,7 @@
 				</div>
 				<button class="btn btn-block btn-primary" type="submit">Submit</button>
 			</form>
-			<a class="btn btn-outline-primary " href="/campgrounds">Go Back</a>
+			<a class="btn btn-outline-primary" id="back" href="/campgrounds">Go Back</a>
 		</div>
 	</div>
 <%include ../partials/footer%>

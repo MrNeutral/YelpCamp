@@ -4,6 +4,7 @@ $(".submit").on("click", function() {
 	}
 });
 $("#pills-tab a:first").tab("show");
+$( "document" ).ready($("#back").prop("href", document.referrer))
 /*jshint ignore:start*/
 $( "document" ).ready($("#searchForm").find("input").val(""));
 $("#searchForm").on("input", async function(e){
