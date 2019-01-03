@@ -6,7 +6,7 @@ var express 	= require("express"),
 
 router.get("/", function (req, res) {
 	if (req.query.search && req.query.search != "") {
-		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		const regex = new RegExp(escapeRegex(req.query.search), "gi");
 		Campground.find({ "name": regex }, function(err, found) {
 			if(err) {
 				console.log(err);

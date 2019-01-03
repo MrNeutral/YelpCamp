@@ -71,14 +71,18 @@ router.post("/", mdw.isLoggedIn, function (req, res) {
 router.put("/:comment_id", mdw.checkCommentOwnership, function (req, res) {
 	Comment.findOneAndUpdate({
 		"_id": req.params.comment_id
-	}, req.body.comment, function (err) {
+	}, req.body.comment, {new: true}, function (err, comment) {
 		if (err) {
 			console.log(err);
 			req.flash("error", err.message);
 			res.redirect("/campgrounds" + req.params.id);
 		} else {
-			req.flash("success", "Comment updated");
-			res.redirect("/campgrounds/" + req.params.id);
+			if(req.xhr){
+				res.json({comment: comment});
+			} else {
+				req.flash("success", "Comment updated");
+				res.redirect("/campgrounds/" + req.params.id);
+			}
 		}
 	});
 });
