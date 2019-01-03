@@ -5,17 +5,34 @@ var express 	= require("express"),
 
 
 router.get("/", function (req, res) {
-	Campground.find({}, function (err, found) {
-		if (err) {
-			console.log(err);
-			req.flash("error", "Something went wrong");
-			res.redirect("/");
-		} else {
-			res.render("campgrounds/index", {
-				campgrounds: found
-			});
-		}
-	});
+	if (req.query.search && req.query.search != "") {
+		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		Campground.find({ "name": regex }, function(err, found) {
+			if(err) {
+				console.log(err);
+			} else {
+				if (req.xhr) {
+					if (found.length < 1) {
+						res.json({campgrounds: null, flash: {type: "error",msg: "No campground found."}});
+					} else {
+						res.json({campgrounds: found});
+					}
+				} else {
+					res.render("campgrounds/index", {campgrounds: found});
+				}
+			}
+		}); 
+	} else {
+		Campground.find({}, function (err, found) {
+			if (err) {
+				console.log(err);
+				req.flash("error", "Something went wrong");
+				res.redirect("/");
+			} else {
+				res.render("campgrounds/index", {campgrounds: found});
+			}
+		});
+	}
 });
 
 router.post("/", mdw.isLoggedIn, function (req, res) {
@@ -100,5 +117,10 @@ router.delete("/:id", mdw.checkCampgroundOwnership, function (req, res) {
 		}
 	});
 });
+
+function escapeRegex(text) {
+	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+
 
 module.exports = router;
