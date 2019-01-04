@@ -23,3 +23,12 @@ hr {
 :focus {
 	outline: 0;
 }
+.input-group {
+	width: inherit;
+}
+.input-group-prepend > button {
+	border-radius: .4rem !important;
+}
+.custom-file > .custom-file-label {
+	border-radius: .4rem !important;
+}

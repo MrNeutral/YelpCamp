@@ -8,6 +8,9 @@ $( "document" ).ready(function(){
 		if($(this).parent().prev().find("form").find("input").val() !== ""){
 			updateData.call($(this).parent().prev().find("input"), e, true);
 		}
+		if($(this).parent().prev().find("form").hasClass("delete-campground")){
+			$(this).parent().prev().find("form").submit();
+		}
 	});
 	$("#pills-tab a:first").tab("show");
 	$("#back").prop("href", document.referrer);
@@ -43,7 +46,36 @@ $( "document" ).ready(function(){
 	$(".edit-comment").find("input").on("keydown", function(e){
 		updateData.call($(this), e, false);
 	});
-	
+	$(".input-group-prepend button").on("click", function(){
+		if($(this).parent().siblings().hasClass("custom-file")){
+			$(this).closest("form").attr("enctype", "application/x-www-form-urlencoded");
+			$(this).parent().siblings().html(`
+					<input class="pl-3 form-control" type="url" name="campground[image]" placeholder="http://imgur.com/campground.jpg" required/>
+			`);
+			$(this).parent().siblings().removeClass("custom-file");
+			$(this).parent().siblings().addClass("px-0");
+		} else {
+			$(this).closest("form").attr("enctype", "multipart/form-data");
+			$(this).parent().siblings().html(`
+				<input type="file" class="custom-file-input" id="inputGroupFile03" name="campground[image]" required>
+				<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+			`);
+			$(this).parent().siblings().removeClass("px-0");
+			$(this).parent().siblings().addClass("custom-file");
+			$(this).parent().siblings().find("input").on("change",function(){
+				//get the file name
+				var fileName = $(this).val();
+				//replace the "Choose a file" label
+				$(this).next(".custom-file-label").html(fileName);
+			});
+		}
+	});
+	$("#inputGroupFile03").on("change",function(){
+		//get the file name
+		var fileName = $(this).val().replace(/^.*[\\\/]/, "");
+		//replace the "Choose a file" label
+		$(this).next(".custom-file-label").html(fileName);
+	});
 });
 async function updateData(e, button){
 	if(e.which == 13 || button){

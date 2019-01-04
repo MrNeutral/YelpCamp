@@ -2,18 +2,23 @@
 	<div class="container mt-2 py-2 new">
 		<div class="container">
 			<h1 class="text-center">Add New Campgrounds</h1>
-			<form action="/campgrounds" method="POST" class="form-group">
+			<form action="/campgrounds" method="POST" class="form-group" enctype="multipart/form-data">
 				<div class="form-group">
 					<div class="row">
 						<label for="campground[name]" class="pl-0 col-sm-3 col-form-label">Name:</label>
 						<input class="col-sm-9 form-control" type="text" name="campground[name]" placeholder="Sandy Creek" required>
 					</div>
-					<div class="row mt-1">
-						<label for="campground[image]" class="pl-0 col-sm-3 col-form-label">Image URL:</label>
-						<input class="col-sm-9 form-control" type="url" name="campground[image]" placeholder="http://imgur.com/campground.jpg" required>
+					<div class="row input-group mt-1">
+						<div class="pl-0 input-group-prepend col-sm-3">
+							<button class="btn btn-sm btn-outline-secondary" type="button">Image/URL</button>
+						</div>
+						<div class="custom-file col-sm-9">
+							<input type="file" class="custom-file-input" id="inputGroupFile03" name="campground[image]" required>
+							<label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+						</div>
 					</div>
 					<div class="row mt-1">
-						<label for="campground[image]" class="pl-0 col-sm-3 col-form-label">Pricing:</label>
+						<label for="campground[price]" class="pl-0 col-sm-3 col-form-label">Pricing:</label>
 						<input class="col-sm-9 form-control" type="number" name="campground[price]" placeholder="$9.00 (per night)" min="0.01" step="0.01" required>
 					</div>
 					<div class="row mt-1">

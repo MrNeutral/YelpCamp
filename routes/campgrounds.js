@@ -1,9 +1,29 @@
 var express 	= require("express"),
 	Campground  = require("../models/campground"),
 	router 		= express.Router(),
-	mdw 		= require("../middleware");
+	mdw 		= require("../middleware"),
+	dotEnv		= require("dotenv").config(),
+	multer		= require("multer"),
+	cloudinary 	= require("cloudinary"),
+	storage		= multer.diskStorage({
+		filename: function(req, file, callback){
+			callback(null, Date.now()+file.originalname);
+		}
+	}),
+	imageFilter				= function(req, file, cb){
+		// accept image files only
+		if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+			return cb(new Error("Only image files are allowed!"), false);
+		}
+		cb(null, true);
+	},
+	upload 		= multer({ storage: storage, fileFilter: imageFilter});
 
-
+cloudinary.config({ 
+	cloud_name: "yelpcamp-thanaspulaj", 
+	api_key: process.env.CLOUDINARY_API_KEY, 
+	api_secret: process.env.CLOUDINARY_API_SECRET
+});
 router.get("/", function (req, res) {
 	if (req.query.search && req.query.search != "") {
 		const regex = new RegExp(escapeRegex(req.query.search), "gi");
@@ -35,21 +55,42 @@ router.get("/", function (req, res) {
 	}
 });
 
-router.post("/", mdw.isLoggedIn, function (req, res) {
-	Campground.create(req.body.campground, function (err, campground) {
-		if (err) {
-			console.log(err);
-			req.flash("error", err.message);
-			res.redirect("/campgrounds");
-		} else {
-			campground.poster.id = req.user._id;
-			campground.poster.username = req.user.username;
-			campground.poster.isAdmin = req.user.isAdmin;
-			campground.save();
-			req.flash("success", "Campground added");
-			res.redirect("campgrounds");
-		}
-	});
+router.post("/", mdw.isLoggedIn, upload.single("campground[image]"), function(req, res){
+	if(req.headers["content-type"].slice(0, 19) == "multipart/form-data"){
+		cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+			// add cloudinary url for the image to the campground object under image property
+			req.body.campground.image = result.secure_url;
+			Campground.create(req.body.campground, function (err, campground) {
+				if (err) {
+					console.log(err);
+					req.flash("error", err.message);
+					res.redirect("/campgrounds");
+				} else {
+					campground.poster.id = req.user._id;
+					campground.poster.username = req.user.username;
+					campground.poster.isAdmin = req.user.isAdmin;
+					campground.save();
+					req.flash("success", "Campground added");
+					res.redirect("campgrounds");
+				}
+			});
+		});
+	} else {
+		Campground.create(req.body.campground, function (err, campground) {
+			if (err) {
+				console.log(err);
+				req.flash("error", err.message);
+				res.redirect("/campgrounds");
+			} else {
+				campground.poster.id = req.user._id;
+				campground.poster.username = req.user.username;
+				campground.poster.isAdmin = req.user.isAdmin;
+				campground.save();
+				req.flash("success", "Campground added");
+				res.redirect("campgrounds");
+			}
+		});
+	}
 });
 
 router.get("/new", mdw.isLoggedIn, function (req, res) {

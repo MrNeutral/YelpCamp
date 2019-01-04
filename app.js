@@ -2,6 +2,7 @@
 //REQUIREMENTS
 const express 				= require("express"),
 	app 					= express(),
+	dotEnv					= require("dotenv").config(),
 	bodyParser  			= require("body-parser"),
 	mongoose 				= require("mongoose"),
 	passport				= require("passport"),
@@ -12,17 +13,30 @@ const express 				= require("express"),
 	Comment					= require("./models/comment"),
 	campgroundRoutes		= require("./routes/campgrounds"),
 	commentRoutes			= require("./routes/comments"),
+	userRoutes				= require("./routes/user"),
 	indexRoutes				= require("./routes/index"),
 	flash 					= require("connect-flash"),
 	middleware				= require("./middleware"),
 	methodOverride 			= require("method-override"),
 	seedDB					= require("./seedDB");
+	
 
 //CONFIGURATION
 const URL = "mongodb://localhost:27017/yelp_camp";
-mongoose.connect(process.env.DATABASE_URL || URL, {
-	useNewUrlParser: true
-}).catch(err => console.log(err));
+/* jshint ignore:start */
+switch(process.env.NODE_ENV){
+	case("dev"):
+		mongoose.connect(URL, {
+			useNewUrlParser: true
+		}).catch(err => console.log(err));
+		break;
+	case("prod"):
+		mongoose.connect(process.env.DATABASE_URL, {
+			useNewUrlParser: true
+		}).catch(err => console.log(err));
+		break;
+}
+/* jshint ignore:end */
 mongoose.set("useFindAndModify", false);
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
@@ -51,6 +65,7 @@ app.use(function (req, res, next) {
 });
 //ROUTES START
 app.use("/", indexRoutes);
+app.use("/user", userRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 app.get("*", function (req, res) {
