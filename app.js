@@ -1,24 +1,24 @@
 /* eslint-disable no-unused-vars */
 //REQUIREMENTS
-const express 				= require("express"),
-	app 					= express(),
-	dotEnv					= require("dotenv").config(),
-	bodyParser  			= require("body-parser"),
-	mongoose 				= require("mongoose"),
-	passport				= require("passport"),
-	LocalStrategy			= require("passport-local"),
-	passportLocalMongoose	= require("passport-local-mongoose"),
-	User 					= require("./models/user"),
-	Campground  			= require("./models/campground"),
-	Comment					= require("./models/comment"),
-	campgroundRoutes		= require("./routes/campgrounds"),
-	commentRoutes			= require("./routes/comments"),
-	userRoutes				= require("./routes/user"),
-	indexRoutes				= require("./routes/index"),
-	flash 					= require("connect-flash"),
-	middleware				= require("./middleware"),
-	methodOverride 			= require("method-override"),
-	seedDB					= require("./seedDB");
+const express 					= require("express"),
+	app 						= express(),
+	dotEnv						= require("dotenv").config(),
+	bodyParser  				= require("body-parser"),
+	mongoose 					= require("mongoose"),
+	passport					= require("passport"),
+	LocalStrategy				= require("passport-local"),
+	passportLocalMongoose		= require("passport-local-mongoose"),
+	User 						= require("./models/user"),
+	Campground  				= require("./models/campground"),
+	Comment						= require("./models/comment"),
+	campgroundRoutes			= require("./routes/campgrounds"),
+	commentRoutes				= require("./routes/comments"),
+	userRoutes					= require("./routes/user"),
+	indexRoutes					= require("./routes/index"),
+	flash 						= require("connect-flash"),
+	middleware					= require("./middleware"),
+	methodOverride 				= require("method-override"),
+	seedDB						= require("./seedDB");
 	
 
 //CONFIGURATION

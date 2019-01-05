@@ -84,6 +84,6 @@ typings/
 #Unneeded
 *.sublime*
 #Old versions
-/.Old Versions/
+/.Old Versions*
 *.code-workspace
 .jshintrc

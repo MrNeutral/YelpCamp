@@ -6,6 +6,7 @@ const express 	= require("express"),
 	dotEnv		= require("dotenv").config(),
 	multer		= require("multer"),
 	cloudinary 	= require("cloudinary"),
+	{check, oneOf, validationResult} = require("express-validator/check"),
 	storage		= multer.diskStorage({
 		filename: function(req, file, callback){
 			callback(null, Date.now()+file.originalname);
@@ -14,7 +15,8 @@ const express 	= require("express"),
 	imageFilter				= function(req, file, cb){
 		// accept image files only
 		if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-			return cb(new Error("Only image files are allowed!"), false);
+			req.fileValidationError = "Forbidden extension";
+			return cb(null, false, req.fileValidationError);
 		}
 		cb(null, true);
 	},
@@ -59,7 +61,35 @@ router.get("/", function (req, res) {
 	}
 });
 
-router.post("/", mdw.isLoggedIn, upload.single("campground[image]"), function(req, res){
+router.post("/", mdw.isLoggedIn,[
+	check("campground[name]").not().isEmpty(),
+	oneOf([
+		check("campground[image]").not().isEmpty(),
+		check("campground[image]").isURL(),
+	], "Invalid image"),
+	oneOf([
+		check("campground[price]").isInt(),
+		check("campground[price]").not().isEmpty(),
+	], "Invalid value for price"),
+	check("campground[description]").not().isEmpty()
+], upload.single("campground[image]"), function(req, res){
+	let errors = validationResult(req);
+	if(req.fileValidationError){
+		req.flash("error", "Invalid file type");
+		return res.redirect("/campgrounds/new");
+	}
+	if (!errors.isEmpty()) {
+		errors = errors.array();
+		errors = errors.map(error => {
+			if(error.param !== "_error"){
+				return `${error.msg} for ${error.param.replace(/\./g, " ")}`;
+			} else {
+				return `${error.msg}`;
+			}
+		});
+		req.flash("error", errors.join("<br/>"));
+		return res.redirect("/campgrounds/new");
+	}
 	if(req.headers["content-type"].slice(0, 19) == "multipart/form-data"){
 		cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
 			// add cloudinary url for the image to the campground object under image property
