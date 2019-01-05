@@ -43,7 +43,7 @@
 					<%if(campground.comments.length != 0){%>
 						<div class="container py-2 darker hr-hide" id="output">
 							<%campground.comments.forEach(function(comment, i){%>
-								<div class="container py-1">
+								<div class="container py-1 comment">
 									<span class="font-weight-bold">
 										<%=comment.author.username%></span>
 										<%if (comment.author.isAdmin){%>

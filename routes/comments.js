@@ -1,4 +1,4 @@
-var express 	= require("express"),
+const express 	= require("express"),
 	Campground  = require("../models/campground"),
 	Comment 	= require("../models/comment"),
 	router 		= express.Router({
@@ -96,8 +96,12 @@ router.delete("/:comment_id", mdw.checkCommentOwnership, function (req, res) {
 			req.flash("error", err.message);
 			res.redirect("/campgrounds");
 		} else {
-			req.flash("success", "Comment deleted");
-			res.redirect("/campgrounds/" + req.params.id);
+			if(req.xhr){
+				res.json({success: true});
+			} else {
+				req.flash("success", "Comment deleted");
+				res.redirect("/campgrounds/" + req.params.id);
+			}
 		}
 	});
 });

@@ -1,7 +1,8 @@
-var express 	= require("express"),
+const express 	= require("express"),
 	Campground  = require("../models/campground"),
 	router 		= express.Router(),
 	mdw 		= require("../middleware"),
+	// eslint-disable-next-line no-unused-vars
 	dotEnv		= require("dotenv").config(),
 	multer		= require("multer"),
 	cloudinary 	= require("cloudinary"),
@@ -19,11 +20,14 @@ var express 	= require("express"),
 	},
 	upload 		= multer({ storage: storage, fileFilter: imageFilter});
 
+	
 cloudinary.config({ 
 	cloud_name: "yelpcamp-thanaspulaj", 
 	api_key: process.env.CLOUDINARY_API_KEY, 
 	api_secret: process.env.CLOUDINARY_API_SECRET
 });
+
+
 router.get("/", function (req, res) {
 	if (req.query.search && req.query.search != "") {
 		const regex = new RegExp(escapeRegex(req.query.search), "gi");

@@ -1,7 +1,7 @@
-var Campground = require("../models/campground");
-var Comment = require("../models/comment");
+const Campground = require("../models/campground");
+const Comment = require("../models/comment");
 
-var middleware = {
+const middleware = {
 	isLoggedIn: function(req, res, next){
 		if(req.isAuthenticated()){
 			return next();

@@ -5,11 +5,14 @@ $( "document" ).ready(function(){
 		origOutput = document.getElementById("output").innerHTML;
 	}
 	$(".submit").on("click", function(e) {
-		if($(this).parent().prev().find("form").find("input").val() !== ""){
+		if($(this).parent().prev().find("form").hasClass("edit-comment") && $(this).parent().prev().find("form").find("input").val() !== ""){
 			updateData.call($(this).parent().prev().find("input"), e, true);
 		}
 		if($(this).parent().prev().find("form").hasClass("delete-campground")){
 			$(this).parent().prev().find("form").submit();
+		}
+		if($(this).parent().prev().find("form").hasClass("delete-comment")){
+			deleteData.call($(this).parent().prev().find("form"));
 		}
 	});
 	$("#pills-tab a:first").tab("show");
@@ -64,7 +67,7 @@ $( "document" ).ready(function(){
 			$(this).parent().siblings().addClass("custom-file");
 			$(this).parent().siblings().find("input").on("change",function(){
 				//get the file name
-				var fileName = $(this).val();
+				const fileName = $(this).val();
 				//replace the "Choose a file" label
 				$(this).next(".custom-file-label").html(fileName);
 			});
@@ -72,7 +75,8 @@ $( "document" ).ready(function(){
 	});
 	$("#inputGroupFile03").on("change",function(){
 		//get the file name
-		var fileName = $(this).val().replace(/^.*[\\\/]/, "");
+		// eslint-disable-next-line no-useless-escape
+		const fileName = $(this).val().replace(/^.*[\\\/]/, "");
 		//replace the "Choose a file" label
 		$(this).next(".custom-file-label").html(fileName);
 	});
@@ -95,6 +99,29 @@ async function updateData(e, button){
 			});
 			const data = await response.json();
 			output.text(data.comment.body);
+		}
+	}
+}
+
+async function deleteData(){
+	const form = $(this);
+	form.closest(".modal.fade").modal("hide");
+	$("body").removeClass("modal-open");
+	$(".modal-backdrop").remove();
+	const response = await fetch(`${form.prop("action")}`, {
+		"method": "DELETE",
+		"headers": {
+			"Content-Type": "application/x-www-form-urlencoded",
+			"X-Requested-With": "XMLHttpRequest"
+		}
+	});
+	const data = await response.json();
+	if(data.success){
+		if($(this).closest(".user").children().length == 1){
+			$(this).closest(".comment").remove();
+			$(".user").html("<span>There's nothing here...</span>");
+		} else {
+			$(this).closest(".comment").remove();
 		}
 	}
 }

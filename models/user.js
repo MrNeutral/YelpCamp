@@ -1,9 +1,9 @@
-var mongoose = require("mongoose");
-var passportLocalStrategy = require("passport-local-mongoose");
-var Comment = require("./comment");
-var Campground = require("./campground");
+const mongoose = require("mongoose");
+const passportLocalStrategy = require("passport-local-mongoose");
+const Comment = require("./comment");
+const Campground = require("./campground");
 
-var userSchema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
 	username: String,
 	password: String,
 	email: {type: String, default: "Not set"},
@@ -33,11 +33,11 @@ userSchema.statics.getCampgrounds = async function(id){
 userSchema.statics.serializeUser = function() {
 	return function(user, cb) {
 		cb(null, user.id);
-	}
+	};
 };
 
 userSchema.statics.deserializeUser = function() {
-	var self = this;
+	const self = this;
 
 	return function(id, cb) {
 		self.findOne({"_id": id}, cb);

@@ -2,7 +2,7 @@
 const mongoose = require("mongoose"),
 	Campground = require("./models/campground"),
 	Comment    = require("./models/comment");
-var campSeeds 	 = [
+let campSeeds 	 = [
 	{
 		name: "Mammoth Cave",
 		image: "https://www.nps.gov/maca/planyourvisit/images/MapleSpringsCampground-Campsite.jpg",
@@ -92,7 +92,7 @@ var campSeeds 	 = [
 		isPlaceholder: true
 	}
 ];
-var commentSeeds = [
+let commentSeeds = [
 	{
 		author: {
 			username: "John Doe"
@@ -132,7 +132,7 @@ var commentSeeds = [
 
 //taken from StackOverflow
 function shuffle(array) {
-	var currentIndex = array.length, temporaryValue, randomIndex;
+	let currentIndex = array.length, temporaryValue, randomIndex;
 
 	// While there remain elements to shuffle...
 	while (0 !== currentIndex) {

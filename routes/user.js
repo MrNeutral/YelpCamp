@@ -1,6 +1,7 @@
-var express 	= require("express"),
+const express 	= require("express"),
 	User 		= require("../models/user"),
 	router 		= express.Router(),
+	// eslint-disable-next-line no-unused-vars
 	dotEnv		= require("dotenv").config(),
 	mdw  		= require("../middleware");
 
@@ -96,7 +97,7 @@ router.put("/:user_id/admin", mdw.isUser, function(req, res){
 });
 
 router.delete("/:user_id", mdw.isUser, function(req, res){
-	User.findOneAndDelete({"_id": req.params.user_id}, function(err, user){
+	User.findOneAndDelete({"_id": req.params.user_id}, function(err){
 		if (err) {
 			console.log(err);
 			req.flash("error", err.message);

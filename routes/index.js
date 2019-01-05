@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-var express 	= require("express"),
+const express 	= require("express"),
 	User 		= require("../models/user"),
 	passport 	= require("passport"),
 	router 		= express.Router(),
@@ -27,7 +27,7 @@ router.get("/register", function (req, res) {
 });
 
 router.post("/register", function (req, res) {
-	var newUser = {
+	const newUser = {
 		username: req.body.username
 	};
 	if (req.body.adminAuth == process.env.ADMIN_CODE) {

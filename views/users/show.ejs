@@ -2,7 +2,7 @@
     <div class="container card card-body">
         <div class="row">
             <div class="col-md-3 container py-2">
-                <div class="">
+                <div>
                     <h2 class="text-center">
                     <%=user.username%> 
                     <%if (user.isAdmin){%>
@@ -77,10 +77,10 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="tab-pane fade show active hr-hide" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
+                        <div class="tab-pane fade show active hr-hide user" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
                         <%if(user.comments.length > 0){%>
                             <%user.comments.forEach(function(comment, i){%>
-                                <div class="container py-1">
+                                <div class="container py-1 comment">
                                     <span class="font-weight-bold"><%=comment.author.username%></span>
                                     <a href="/campgrounds/<%=comment.postedTo._id%>"class="font-weight-bold float-right"><%=comment.postedTo.name%></a>
                                         <%if (comment.author.isAdmin){%>
@@ -103,9 +103,6 @@
                                 <div class="container py-1">
                                     <a href="/campgrounds/<%=campground._id%>"class="font-weight-bold"><%=campground.name%></a>
                                     <span class="font-weight-bold float-right">Price: $<%=campground.price%>/Night</span>
-                                        <%if (campground.poster.isAdmin){%>
-                                            <i class="fa fa-tools"></i>
-                                        <%}%>
                                     <p>
                                         <%=campground.description%>
                                     </p>

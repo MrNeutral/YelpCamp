@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-var Campground = require("./campground");
+const mongoose = require("mongoose");
 
-var commentSchema = new mongoose.Schema({
+const commentSchema = new mongoose.Schema({
 	author: {
 		id: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -17,9 +16,5 @@ var commentSchema = new mongoose.Schema({
 		ref: "Campground"
 	}
 });
-/* jshint ignore:start */
-// commentSchema.statics.getCampground = async function(id){
-// };
-/* jshint ignore:end */
 
 module.exports = mongoose.model("Comment", commentSchema);
