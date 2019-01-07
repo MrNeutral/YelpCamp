@@ -30,13 +30,19 @@ switch(process.env.NODE_ENV){
 			useNewUrlParser: true
 		}).catch(err => console.log(err));
 		break;
-	case("prod"):
+	case("production"):
 		mongoose.connect(process.env.DATABASE_URL, {
 			useNewUrlParser: true
 		}).catch(err => console.log(err));
 		break;
 }
 /* jshint ignore:end */
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+	res.header("Access-Control-Allow-Headers", "Content-Type");
+	next();
+});
 mongoose.set("useFindAndModify", false);
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
