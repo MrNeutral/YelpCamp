@@ -5,9 +5,16 @@ img {
 	background-color: #e9ecef;
 }
 .new {
-	width: 35%;
+	display: grid;
+	grid-template-rows: .5fr 2fr .5fr;
+}
+.new > .container:first-child {
+	width: 40%;
 	background-color: #e9ecef;
 	border-radius: 3px;
+}
+.new > .card:first-child {
+	grid-row: 2/3;
 }
 hr {
 	width: 70%;
@@ -31,4 +38,40 @@ hr {
 }
 .custom-file > .custom-file-label {
 	border-radius: .4rem !important;
+}
+/* #output {
+	height: 10vh;
+} */
+.campground{
+	display: flex;
+	height: 255px;
+}
+.card-img-top {
+	height: 60%;
+}
+.card-body {
+	max-width: 100%;
+}
+a.h4 {
+	color:#78C2AD;
+}
+@media (max-width: 575.98px) {
+	.jumbotron > .btn {
+		margin-top: 0 !important;
+	}
+	.campground{
+		height: 255px;
+	}
+	.card-img-top {
+		height: 150px;
+	}
+	#side-info {
+		display: none;
+	}
+	.new {
+		display: inline-block;
+	}
+	.new > .container:first-child {
+		width: 80%;
+	}
 }

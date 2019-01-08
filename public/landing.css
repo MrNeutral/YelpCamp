@@ -85,3 +85,8 @@ hr {
 	width: 20%;
 	background-color: #fff;
 }
+@media (max-width: 575.98px) {
+	#landing-header h1{
+		font-size: 28px;
+	}
+}

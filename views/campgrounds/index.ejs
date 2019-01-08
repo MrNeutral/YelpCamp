@@ -11,15 +11,14 @@
 			<a class="btn btn-primary btn-md mt-3" href="/campgrounds/new">Add new campground</a>
 		</div>
 
-		<div class="row d-flex flex-wrap" id="output">
+		<div class="row d-flex" id="output">
 			<%campgrounds.forEach(function(campground){%>
-				<div class="col-sm-12 col-md-3">
+				<div class="campground col-sm-12 col-md-4 col-lg-3">
 					<div class="card my-3 text-center">
 						<img class="card-img-top" src="<%=campground.image%>" class="img-fluid">
-						<hr class="mx-auto">
-						<div class="card-body ">
-							<h4 class="card-title"><%=campground.name%></h4>
-							<a class="card-text btn btn-sm btn-outline-info" href="/campgrounds/<%=campground._id%>" class="btn btn-sm btn-primary">More Info</a>
+						<hr class="mx-auto mt-3">
+						<div class="card-body pt-1">
+							<a class="card-title h4" href="/campgrounds/<%=campground._id%>" class="btn btn-sm btn-primary"><%=campground.name%></a>
 						</div>
 					</div>
 				</div>

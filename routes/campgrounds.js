@@ -63,6 +63,7 @@ router.get("/", function (req, res) {
 
 router.post("/", mdw.isLoggedIn,[
 	check("campground[name]").not().isEmpty(),
+	check("campground[name]").isLength({min:1, max: 34}),
 	oneOf([
 		check("campground[image]").not().isEmpty(),
 		check("campground[image]").isURL(),
