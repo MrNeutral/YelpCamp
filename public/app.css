@@ -1,3 +1,9 @@
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
 img {
 	max-height: 450px;
 }
@@ -19,7 +25,8 @@ img {
 hr {
 	width: 70%;
 	margin-top: .5rem;
-	margin-bottom: .5rem; 
+	margin-bottom: .5rem;
+	color: #78c2ad;
 }
 .darker {
 	background-color: #e9e9e9;
@@ -39,9 +46,6 @@ hr {
 .custom-file > .custom-file-label {
 	border-radius: .4rem !important;
 }
-/* #output {
-	height: 10vh;
-} */
 .campground{
 	display: flex;
 	height: 255px;
@@ -52,8 +56,52 @@ hr {
 .card-body {
 	max-width: 100%;
 }
-a.h4 {
+a.h4:hover {
 	color:#78C2AD;
+	text-decoration: none;
+}
+.navbar-toggler:focus {
+	outline: none;
+}
+#header-background {
+	color: #fff;
+	background: #333;
+	height: 375px;
+	z-index: 0;
+	width: 100%;
+	position: relative;
+	margin-top: -.5rem;
+}
+#header-background h1, #header-background p{
+	color: #fff;
+}
+#header-background .header-content {
+	z-index: 1;
+	position: absolute;
+}
+#header-background .header-content p, #header-background .header-content h1 {
+	text-shadow: 1px 1px 5px #333;
+}
+.nav a:hover {
+	text-shadow: 1px 1px 3px #333 !important;
+}
+.bg-image {
+	background: url(https://res.cloudinary.com/yelpcamp-thanaspulaj/image/upload/v1546976627/pexels-photo-699558.jpg);
+	opacity: 0.5;
+	position: absolute;
+	background-repeat: no-repeat;
+	background-size: 100vw;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	border-bottom: 1px solid #78C2AD;
+}
+.campground .card {
+	box-shadow: 1px 2px 3px 0 rgba(0,0,0,0.16);
+}
+.campground .card:hover {
+	box-shadow: 3px 4px 5px 0 rgba(0,0,0,0.16);
 }
 @media (max-width: 575.98px) {
 	.jumbotron > .btn {
@@ -73,5 +121,11 @@ a.h4 {
 	}
 	.new > .container:first-child {
 		width: 80%;
+	}
+	#comment\[body\]-label {
+		font-size: 15.5px;
+	}
+	label[for=comment\[author\]] {
+		text-align: left;
 	}
 }

@@ -13,12 +13,12 @@ aria-hidden="true">
                 <form action="/campgrounds/<%=campground._id%>/comments" method="POST" class="form-group">
                     <div class="form-group container py-0">
                         <div class="row">
-                            <label for="comment[author]" class="pl-0 col-sm-3 col-form-label">Poster:</label>
-                            <input class=" col-sm-9 form-control-plaintext" type="text" value="<%=currentUser.username%>" readonly>
+                            <label for="comment[author]" class="pl-0 col-3 col-form-label">Poster:</label>
+                            <input class=" col-9 form-control-plaintext" type="text" value="<%=currentUser.username%>" readonly>
                         </div>
                         <div class="row mt-1">
-                            <label for="comment[body]" class="pl-0 col-sm-3 col-form-label">Comment:</label>
-                            <input class="col-sm-9 form-control mt-1" type="text" name="comment[body]" placeholder="Your opinion on this campground" required>
+                            <label for="comment[body]" id="comment[body]-label" class="pl-0 col-3 col-form-label">Comment:</label>
+                            <input class="col-9 form-control mt-1" type="text" name="comment[body]" placeholder="Your opinion on this campground" required>
                         </div>
                         <input type="submit" style="display: none">
                     </div>

@@ -1,6 +1,8 @@
 <%include ../partials/header%>
-	<div class="container mt-2">
-		<div class="jumbotron">
+	<div id="header-background">
+		<div class="bg-image"></div>
+		<div class="container py-2">
+			<div class="header-content my-5">
 			<h1>Campgrounds</h1>
 			<p>Popular campgrounds in the US</p>
 			<form class="form-inline" id="searchForm">
@@ -9,16 +11,17 @@
 				</div>
 			</form>
 			<a class="btn btn-primary btn-md mt-3" href="/campgrounds/new">Add new campground</a>
+			</div>
 		</div>
-
+	</div>
+	<div class="container mt-4">
 		<div class="row d-flex" id="output">
 			<%campgrounds.forEach(function(campground){%>
 				<div class="campground col-sm-12 col-md-4 col-lg-3">
-					<div class="card my-3 text-center">
+					<div class="card border-primary text-white my-3 text-center">
 						<img class="card-img-top" src="<%=campground.image%>" class="img-fluid">
-						<hr class="mx-auto mt-3">
-						<div class="card-body pt-1">
-							<a class="card-title h4" href="/campgrounds/<%=campground._id%>" class="btn btn-sm btn-primary"><%=campground.name%></a>
+						<div class="card-body my-auto py-auto">
+							<a class="h4" href="/campgrounds/<%=campground._id%>" class="btn btn-sm btn-primary"><%=campground.name%></a>
 						</div>
 					</div>
 				</div>

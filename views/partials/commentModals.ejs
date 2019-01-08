@@ -13,7 +13,7 @@ aria-hidden="true">
                 <form action="/campgrounds/<%=campground._id%>/comments/<%=comment._id%>?_method=PUT" method="POST" class="form-group edit-comment">
                     <div class="form-group">
                         <div class="row mt-1 container py-0">
-                            <label for="comment[body]" class="col-sm-3 col-form-label">Comment:</label>
+                            <label for="comment[body]" class="col-form-label">Comment:</label>
                             <input class="col-sm-9 form-control mt-1" type="text" name="comment[body]" value="<%=comment.body%>" required>
                         </div>
                     </div>
