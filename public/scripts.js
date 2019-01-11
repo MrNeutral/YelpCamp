@@ -1,6 +1,9 @@
 /*jshint ignore:start*/
 $( "document" ).ready(function(){
 	let origOutput;
+	if($(".alert.alert-success")){
+		setTimeout(() => $(".alert.alert-success").fadeOut(600, () => $(this).remove()), 2000);
+	}
 	if(document.getElementById("output")){
 		origOutput = document.getElementById("output").innerHTML;
 	}
