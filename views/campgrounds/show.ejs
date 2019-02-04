@@ -6,7 +6,7 @@
 					<img class="img-fluid card-img-top campground-image" src="<%=campground.image%>">
 					<div class="p-2 card-body">
 						<div class="row justify-content-between">
-							<h1 class="pl-2 card-title campground-name">
+							<h1 class="pl-2 card-title campground-name col-12">
 								<%=campground.name%>
 							</h1>
 							<h4 class="col-6 text-left font-weight-bold campground-rating">Rating:</h4>
@@ -34,7 +34,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 card container darker">
+			<div class="col-md-6 card container darker comments">
 					<%if(campground.comments.length != 0){%>
 						<div class="container py-2 darker hr-hide" id="output">
 							<%campground.comments.forEach(function(comment, i){%>
