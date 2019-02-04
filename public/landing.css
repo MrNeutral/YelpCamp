@@ -6,7 +6,18 @@ body {
 	z-index: 1;
 	position: relative;
 	text-align: center;
-	padding-top: 40vh;
+	margin-top: 39vh;
+}
+#landing-header-background{
+	background: #333;
+	height: 100%;
+	right: 0;
+	left: 14.5rem;
+	border-radius: 0.4rem;
+	opacity: 0.4;
+	z-index: -1;
+	width: 60%;
+	position: absolute;
 }
 
 #landing-header h1 {
