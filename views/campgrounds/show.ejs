@@ -3,16 +3,16 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="card campground-show">
-					<img class="img-fluid card-img-top" src="<%=campground.image%>">
+					<img class="img-fluid card-img-top campground-image" src="<%=campground.image%>">
 					<div class="p-2 card-body">
 						<div class="row justify-content-between">
-							<h1 class="pl-2 card-title">
+							<h1 class="pl-2 card-title campground-name">
 								<%=campground.name%>
 							</h1>
-							<h4 class="col-6 text-left font-weight-bold">Rating:</h4>
-							<h4 class="col-6 text-right"><sup class="font-weight-bold" style="font-size: 18px">$</sup><span class="font-weight-bold" style="font-size: 28px"><%=campground.price%></span><span style="font-size: 16px">/night<span></h4>
+							<h4 class="col-6 text-left font-weight-bold campground-rating">Rating:</h4>
+							<h4 class="col-6 text-right"><sup class="font-weight-bold" style="font-size: 18px">$</sup><span class="campground-price"><%=campground.price%></span><span style="font-size: 16px">/night<span></h4>
 						</div>
-						<p class="card-text">
+						<p class="card-text campground-description">
 							<%=campground.description%>
 						</p>
 						<p>
