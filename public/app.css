@@ -34,10 +34,6 @@ hr {
 .darker {
 	background-color: #e9e9e9;
 }
-.comments{
-	max-height: 95vh;
-	overflow-y: scroll;
-}
 .hr-hide :last-child > hr {
 	display: none;
 }

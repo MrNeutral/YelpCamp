@@ -1,5 +1,6 @@
 /*jshint ignore:start*/
 $("document").ready(function() {
+	limitHeight();
 	let origOutput;
 	if ($(".alert.alert-success")) {
 		setTimeout(() => $(".alert.alert-success").fadeOut(600, () => $(this).remove()), 2000);
@@ -164,6 +165,15 @@ async function updateCampground(e, button) {
 				$(".campground-name").text(data.campground.name);
 			}
 		}
+	}
+}
+
+function limitHeight() {
+	if ($(".comments").height() > $(".campground-show").height()) {
+		$(".comments").height($(".campground-show").height());
+		$(".comments").css("overflow-y", "scroll");
+	} else {
+		$(".comments").css("overflow-y", "hidden");
 	}
 }
 /*jshint ignore:end*/
