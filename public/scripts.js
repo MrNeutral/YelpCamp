@@ -21,6 +21,8 @@ $("document").ready(function() {
 		}
 		else if ($(this).parent().prev().find("form").hasClass("delete-comment")) {
 			deleteComment.call($(this).parent().prev().find("form"));
+		} else {
+			$(this).parent().prev().find("form").submit();
 		}
 	});
 	$("#pills-tab a:first").tab("show");
